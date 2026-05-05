@@ -32,6 +32,7 @@ Queries the version dataset collected by a previously completed `New-SPOTenantAp
 > [!NOTE]
 > - A completed job that was started with `-CollectVersionData` is required before running this cmdlet. Use `Get-SPOTenantApplyFileVersionPolicyJobProgress` to confirm the job has completed.
 > - The estimate is based on a snapshot collected during the job and may not reflect changes made to the tenant after the job ran.
+> - The estimate does not account for versions protected by retention policies, retention labels, or eDiscovery holds. Actual versions deleted may be fewer than estimated.
 
 ## EXAMPLES
 
