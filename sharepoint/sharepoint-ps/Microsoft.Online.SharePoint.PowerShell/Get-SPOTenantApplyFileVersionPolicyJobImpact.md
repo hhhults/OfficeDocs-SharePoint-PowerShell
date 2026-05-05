@@ -8,7 +8,7 @@ schema: 2.0.0
 author: blarrywangmsft
 ms.author: blarrywang
 ms.reviewer:
-manager: seanmc
+manager: yigitd
 ---
 
 # Get-SPOTenantApplyFileVersionPolicyJobImpact
@@ -38,30 +38,11 @@ Queries the version dataset collected by a previously completed `New-SPOTenantAp
 
 ### Example 1
 ```powershell
-$policy = Get-SPOTenantVersionPolicy
-Get-SPOTenantApplyFileVersionPolicyJobImpact -VersionPolicy $policy
-```
-
-Estimates the impact of trimming using the current tenant version policy against the collected dataset.
-
-### Example 2
-```powershell
 $policy = Get-SPOTenantVersionPolicy | Get-SPOVersionPolicyWithChanges -MajorVersionLimit 50
 Get-SPOTenantApplyFileVersionPolicyJobImpact -VersionPolicy $policy
 ```
 
 Estimates the impact of a more aggressive policy (50 major versions) compared to the current tenant policy.
-
-### Example 3
-```powershell
-New-SPOTenantApplyFileVersionPolicyJob -CollectVersionData
-# Wait for the job to complete, then estimate impact before trimming.
-$impact = Get-SPOTenantVersionPolicy | Get-SPOTenantApplyFileVersionPolicyJobImpact -VersionPolicy $_
-Write-Host "Estimated versions to trim: $($impact.TrimCount)"
-Write-Host "Estimated storage freed: $($impact.TrimStorageGB) GB"
-```
-
-Runs a data-collection job, waits for it to complete, then evaluates the impact of the current policy before committing to a trim operation.
 
 ## PARAMETERS
 

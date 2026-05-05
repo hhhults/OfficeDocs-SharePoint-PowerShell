@@ -8,17 +8,14 @@ schema: 2.0.0
 author: blarrywangmsft
 ms.author: blarrywang
 ms.reviewer:
-manager: seanmc
+manager: yigitd
 ---
 
 # Get-SPOTenantVersionPolicy
 
 ## SYNOPSIS
 
-Returns the current tenant-level file version policy as an `SPOFileVersionPolicySettings` object. SharePoint Advanced Management license or Copilot license is required to run this cmdlet.
-
-> [!NOTE]
-> This feature is currently in preview and may not be available in your tenant.
+Returns the current tenant-level file version policy as an `SPOFileVersionPolicySettings` object.
 
 ## SYNTAX
 
@@ -40,21 +37,6 @@ Get-SPOTenantVersionPolicy
 ```
 
 Returns the current tenant-level file version policy.
-
-### Example 2
-```powershell
-$policy = Get-SPOTenantVersionPolicy
-```
-
-Stores the current tenant-level file version policy in a variable for further modification with `Get-SPOVersionPolicyWithChanges`.
-
-### Example 3
-```powershell
-$policy = Get-SPOTenantVersionPolicy | Get-SPOVersionPolicyWithChanges -MajorVersionLimit 100
-New-SPOTenantApplyFileVersionPolicyJob -TrimVersions -VersionPolicy $policy
-```
-
-Retrieves the current policy, changes the major version limit to 100, and starts a job to trim versions using that modified policy.
 
 ## PARAMETERS
 
@@ -78,7 +60,3 @@ This cmdlet supports the common parameters: `-Debug`, `-ErrorAction`, `-ErrorVar
 [New-SPOTenantApplyFileVersionPolicyJob](New-SPOTenantApplyFileVersionPolicyJob.md)
 
 [Get-SPOTenantApplyFileVersionPolicyJobImpact](Get-SPOTenantApplyFileVersionPolicyJobImpact.md)
-
-[SharePoint Advanced Management](/sharepoint/sharepoint-advanced-management-licensing)
-
-[Microsoft 365 Copilot](/microsoft-365/copilot/microsoft-365-copilot-licensing)

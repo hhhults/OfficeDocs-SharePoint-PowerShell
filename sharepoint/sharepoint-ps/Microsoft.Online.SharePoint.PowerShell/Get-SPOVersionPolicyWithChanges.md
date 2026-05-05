@@ -8,33 +8,36 @@ schema: 2.0.0
 author: blarrywangmsft
 ms.author: blarrywang
 ms.reviewer:
-manager: seanmc
+manager: yigitd
 ---
 
 # Get-SPOVersionPolicyWithChanges
 
 ## SYNOPSIS
 
-Returns a locally modified copy of a version policy without sending any changes to the server. SharePoint Advanced Management license or Copilot license is required to run this cmdlet.
-
-> [!NOTE]
-> This feature is currently in preview and may not be available in your tenant.
+Returns a locally modified copy of a version policy without sending any changes to the server.
 
 ## SYNTAX
 
 ```
-Get-SPOVersionPolicyWithChanges -VersionPolicy <SPOFileVersionPolicySettings> [-FileType <String>]
+Get-SPOVersionPolicyWithChanges -VersionPolicy <SPOFileVersionPolicySettings> [-MajorVersionLimit <Int32>]
+ [-ExpireVersionsAfterDays <Int32>] [-EnableAutoExpirationVersionTrim <Boolean>] [<CommonParameters>]
+
+Get-SPOVersionPolicyWithChanges -VersionPolicy <SPOFileVersionPolicySettings> -FileType <String>
  [-MajorVersionLimit <Int32>] [-ExpireVersionsAfterDays <Int32>]
- [-EnableAutoExpirationVersionTrim <Boolean>] [-Remove] [<CommonParameters>]
+ [-EnableAutoExpirationVersionTrim <Boolean>] [<CommonParameters>]
+
+Get-SPOVersionPolicyWithChanges -VersionPolicy <SPOFileVersionPolicySettings> -FileType <String> -Remove
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 Returns a modified copy of the given version policy. All changes are local — nothing is sent to the server. This cmdlet is intended to be used in a pipeline with `Get-SPOTenantVersionPolicy` to build a modified policy that can then be passed to `New-SPOTenantApplyFileVersionPolicyJob` or `Get-SPOTenantApplyFileVersionPolicyJobImpact`.
 
-When `-FileType` is omitted or set to `"default"`, the default policy settings are modified. When `-FileType` specifies a file type name (for example, `"docx"`), the per-file-type override for that type is created or updated.
+When `-FileType` is omitted, the default policy settings are modified. When `-FileType` is specified, the per-file-type override for that type is created or updated. For supported file type names, see [File type version limits in SharePoint](/sharepoint/file-type-version-limits).
 
-Use `-Remove` with `-FileType` to delete a per-file-type override. The default policy cannot be removed.
+Use `-Remove` with `-FileType` to delete a per-file-type override.
 
 ## EXAMPLES
 
@@ -47,27 +50,17 @@ Retrieves the current tenant version policy and returns a copy with the default 
 
 ### Example 2
 ```powershell
-$policy = Get-SPOTenantVersionPolicy | Get-SPOVersionPolicyWithChanges -FileType "docx" -MajorVersionLimit 50 -ExpireVersionsAfterDays 180
+$policy = Get-SPOTenantVersionPolicy | Get-SPOVersionPolicyWithChanges -FileType "video" -MajorVersionLimit 50 -ExpireVersionsAfterDays 180
 ```
 
-Retrieves the current tenant version policy and returns a copy with a per-file-type override for `docx` files that limits to 50 major versions and expires versions after 180 days.
+Retrieves the current tenant version policy and returns a copy with a per-file-type override for `video` files that limits to 50 major versions and expires versions after 180 days.
 
 ### Example 3
 ```powershell
-$policy = Get-SPOTenantVersionPolicy | Get-SPOVersionPolicyWithChanges -FileType "docx" -Remove
+$policy = Get-SPOTenantVersionPolicy | Get-SPOVersionPolicyWithChanges -FileType "video" -Remove
 ```
 
-Retrieves the current tenant version policy and returns a copy with the `docx` file type override removed, so `docx` files will fall back to the default policy.
-
-### Example 4
-```powershell
-$policy = Get-SPOTenantVersionPolicy |
-    Get-SPOVersionPolicyWithChanges -MajorVersionLimit 100 |
-    Get-SPOVersionPolicyWithChanges -FileType "docx" -MajorVersionLimit 50
-Get-SPOTenantApplyFileVersionPolicyJobImpact -VersionPolicy $policy
-```
-
-Builds a modified policy with a 100-version default and a 50-version docx override, then estimates how many versions would be trimmed using the collected dataset.
+Retrieves the current tenant version policy and returns a copy with the `video` file type override removed, so `video` files will fall back to the default policy.
 
 ## PARAMETERS
 
@@ -78,7 +71,7 @@ Applies to the default policy or the file type specified by `-FileType`.
 
 ```yaml
 Type: Boolean
-Parameter Sets: (All)
+Parameter Sets: Default, FileType
 Aliases:
 
 Required: False
@@ -95,7 +88,7 @@ Applies to the default policy or the file type specified by `-FileType`.
 
 ```yaml
 Type: Int32
-Parameter Sets: (All)
+Parameter Sets: Default, FileType
 Aliases:
 
 Required: False
@@ -106,16 +99,14 @@ Accept wildcard characters: False
 ```
 
 ### -FileType
-The file type name whose per-file-type override should be created, updated, or removed (for example, `"docx"`, `"xlsx"`). Omit this parameter or pass `"default"` to modify the default policy.
-
-Required when using `-Remove`.
+The file type name whose per-file-type override should be created, updated, or removed. Supported values are `"audio"`, `"video"`, and `"outlookspst"`. Omit this parameter to modify the default policy. For more information, see [File type version limits in SharePoint](/sharepoint/file-type-version-limits).
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: FileType, FileTypeRemove
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -129,7 +120,7 @@ Applies to the default policy or the file type specified by `-FileType`.
 
 ```yaml
 Type: Int32
-Parameter Sets: (All)
+Parameter Sets: Default, FileType
 Aliases:
 
 Required: False
@@ -140,14 +131,14 @@ Accept wildcard characters: False
 ```
 
 ### -Remove
-Removes the per-file-type override identified by `-FileType`. The default policy cannot be removed. `-FileType` is required when this switch is specified.
+Removes the per-file-type override identified by `-FileType`. `-FileType` is required when this switch is specified.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
+Parameter Sets: FileTypeRemove
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -189,7 +180,3 @@ This cmdlet supports the common parameters: `-Debug`, `-ErrorAction`, `-ErrorVar
 [New-SPOTenantApplyFileVersionPolicyJob](New-SPOTenantApplyFileVersionPolicyJob.md)
 
 [Get-SPOTenantApplyFileVersionPolicyJobImpact](Get-SPOTenantApplyFileVersionPolicyJobImpact.md)
-
-[SharePoint Advanced Management](/sharepoint/sharepoint-advanced-management-licensing)
-
-[Microsoft 365 Copilot](/microsoft-365/copilot/microsoft-365-copilot-licensing)

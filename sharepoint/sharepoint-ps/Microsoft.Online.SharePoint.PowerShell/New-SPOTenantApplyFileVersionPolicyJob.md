@@ -23,8 +23,13 @@ Queues a job to apply the tenant-level file version policy across all sites. Sha
 ## SYNTAX
 
 ```
-New-SPOTenantApplyFileVersionPolicyJob [-TrimVersions] [-SetVersionPolicy] [-CollectVersionData]
- [-VersionPolicy <SPOFileVersionPolicySettings>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-SPOTenantApplyFileVersionPolicyJob [-TrimVersions] [-SetVersionPolicy] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+
+New-SPOTenantApplyFileVersionPolicyJob -VersionPolicy <SPOFileVersionPolicySettings> [-TrimVersions]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
+
+New-SPOTenantApplyFileVersionPolicyJob -CollectVersionData [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -43,7 +48,8 @@ The following site types are excluded from processing:
 > - Use `Get-SPOTenantVersionPolicy` to confirm the tenant-level file version policy before running the cmdlet to make sure it matches your intended configuration. You can also use the `Get-SPOTenant` cmdlet and check the `EnableAutoExpirationVersionTrim`, `MajorVersionLimit`, `ExpireVersionsAfterDays`, and `VersionPolicyFileTypeOverride` properties.
 > - If the tenant-level version policy changes while the job is in progress, the job will apply the updated policy to the remaining sites that have not yet been processed. Sites that were already processed will not be re-evaluated or updated.
 > - Only one job is allowed per tenant.
-> - Use `-CollectVersionData` first and wait for the job to complete before running `Get-SPOTenantApplyFileVersionPolicyJobImpact` to estimate the impact of a policy without deleting any versions.
+> - Use `-CollectVersionData` first and wait for the job to complete before running `Get-SPOTenantApplyFileVersionPolicyJobImpact` to estimate the impact of a policy without deleting any versions. `-CollectVersionData` cannot be combined with `-VersionPolicy` or `-SetVersionPolicy`.
+> - When `-VersionPolicy` is specified, the tenant-level version policy is always updated and `-SetVersionPolicy` is not needed. Optionally add `-TrimVersions` to also trim existing versions.
 
 ## EXAMPLES
 
@@ -105,7 +111,7 @@ Sets version policy for existing document libraries across all sites based on th
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
+Parameter Sets: WithExistingVersionPolicy
 Aliases:
 
 Required: False
@@ -116,14 +122,14 @@ Accept wildcard characters: False
 ```
 
 ### -CollectVersionData
-Collects version data across all sites for use with `Get-SPOTenantApplyFileVersionPolicyJobImpact`. Use this switch to run a data-collection pass before deciding whether and how to trim versions. The job does not delete any versions when only this switch is specified.
+Collects version data across all sites for use with `Get-SPOTenantApplyFileVersionPolicyJobImpact`. Use this switch to run a data-collection pass before deciding whether and how to trim versions. The job does not delete any versions. Cannot be combined with `-VersionPolicy` or `-SetVersionPolicy`.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
+Parameter Sets: CollectData
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -135,7 +141,7 @@ Trims existing versions for files in document libraries across all sites based o
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
+Parameter Sets: WithExistingVersionPolicy, WithVersionPolicy
 Aliases:
 
 Required: False
@@ -146,16 +152,16 @@ Accept wildcard characters: False
 ```
 
 ### -VersionPolicy
-The new version policy to apply to the tenant before starting the job. When specified, the tenant-level policy is updated to match this object prior to running the job actions (`-TrimVersions`, `-SetVersionPolicy`, `-CollectVersionData`).
+The new version policy to apply to the tenant before starting the job. When specified, the tenant-level policy is always updated and the version policy is propagated to all sites. Optionally combine with `-TrimVersions` to also trim existing versions. Cannot be combined with `-SetVersionPolicy` or `-CollectVersionData`.
 
 Use `Get-SPOTenantVersionPolicy` and `Get-SPOVersionPolicyWithChanges` to build this value.
 
 ```yaml
 Type: SPOFileVersionPolicySettings
-Parameter Sets: (All)
+Parameter Sets: WithVersionPolicy
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
