@@ -33,7 +33,7 @@ Get-SPOVersionPolicyWithChanges -VersionPolicy <SPOFileVersionPolicySettings> -F
 
 ### FileTypeRemove
 ```
-Get-SPOVersionPolicyWithChanges -VersionPolicy <SPOFileVersionPolicySettings> -FileType <String> -Remove
+Get-SPOVersionPolicyWithChanges -VersionPolicy <SPOFileVersionPolicySettings> -FileType <String> [-Remove]
  [<CommonParameters>]
 ```
 

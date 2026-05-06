@@ -30,13 +30,13 @@ New-SPOTenantApplyFileVersionPolicyJob [-TrimVersions] [-SetVersionPolicy] [-Wha
 
 ### WithVersionPolicy
 ```
-New-SPOTenantApplyFileVersionPolicyJob -VersionPolicy <SPOFileVersionPolicySettings> [-TrimVersions]
+New-SPOTenantApplyFileVersionPolicyJob [-TrimVersions] -VersionPolicy <SPOFileVersionPolicySettings>
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### CollectData
 ```
-New-SPOTenantApplyFileVersionPolicyJob -CollectVersionData [-WhatIf] [-Confirm] [<CommonParameters>]
+New-SPOTenantApplyFileVersionPolicyJob [-CollectVersionData] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
