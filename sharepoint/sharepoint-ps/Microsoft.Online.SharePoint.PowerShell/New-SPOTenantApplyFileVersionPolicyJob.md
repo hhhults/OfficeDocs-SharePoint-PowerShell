@@ -55,7 +55,7 @@ The following site types are excluded from processing:
 > - Use `Get-SPOTenantVersionPolicy` to confirm the tenant-level file version policy before running the cmdlet to make sure it matches your intended configuration. You can also use the `Get-SPOTenant` cmdlet and check the `EnableAutoExpirationVersionTrim`, `MajorVersionLimit`, `ExpireVersionsAfterDays`, and `VersionPolicyFileTypeOverride` properties.
 > - If the tenant-level version policy changes while the job is in progress, the job will apply the updated policy to the remaining sites that have not yet been processed. Sites that were already processed will not be re-evaluated or updated.
 > - Only one job is allowed per tenant.
-> - Use `-CollectVersionData` first and wait for the job to complete before running `Get-SPOTenantApplyFileVersionPolicyJobImpact` to estimate the impact of a policy without deleting any versions. `-CollectVersionData` cannot be combined with `-VersionPolicy` or `-SetVersionPolicy`.
+> - Use `-CollectVersionData` first and wait for the job to complete before running `Get-SPOTenantApplyFileVersionPolicyJobImpact` to estimate the impact of a policy without deleting any versions.
 > - When `-VersionPolicy` is specified, the tenant-level version policy is always updated and `-SetVersionPolicy` is not needed. Optionally add `-TrimVersions` to also trim existing versions.
 
 ## EXAMPLES
@@ -160,7 +160,7 @@ Accept wildcard characters: False
 ```
 
 ### -VersionPolicy
-The new version policy to apply to the tenant before starting the job. When specified, the tenant-level policy is always updated and the version policy is propagated to all sites. Optionally combine with `-TrimVersions` to also trim existing versions. Cannot be combined with `-SetVersionPolicy` or `-CollectVersionData`.
+The new version policy to apply to the tenant before starting the job. When specified, the tenant-level policy is always updated and the version policy is propagated to all sites. Optionally combine with `-TrimVersions` to also trim existing versions.
 
 Use `Get-SPOTenantVersionPolicy` and `Get-SPOVersionPolicyWithChanges` to build this value.
 

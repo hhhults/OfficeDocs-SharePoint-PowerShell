@@ -38,10 +38,9 @@ Queries the version dataset collected by a previously completed `New-SPOTenantAp
 
 ### Example 1
 ```powershell
-Get-SPOTenantApplyFileVersionPolicyJobImpact -VersionPolicy (
-    Get-SPOTenantVersionPolicy |
-        Get-SPOVersionPolicyWithChanges -MajorVersionLimit 50
-)
+$policy = Get-SPOTenantVersionPolicy |
+    Get-SPOVersionPolicyWithChanges -MajorVersionLimit 50
+Get-SPOTenantApplyFileVersionPolicyJobImpact -VersionPolicy $policy
 ```
 
 Estimates the impact of a more aggressive policy (50 major versions) compared to the current tenant policy.
