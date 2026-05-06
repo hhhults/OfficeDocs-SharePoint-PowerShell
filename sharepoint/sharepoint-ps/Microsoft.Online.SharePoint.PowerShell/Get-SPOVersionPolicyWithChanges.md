@@ -185,6 +185,13 @@ This cmdlet supports the common parameters: `-Debug`, `-ErrorAction`, `-ErrorVar
 
 ## NOTES
 
+When `EnableAutoExpirationVersionTrim` is `$true`, `MajorVersionLimit` is always 500 and `ExpireVersionsAfterDays` is always 30. As a result:
+
+- Switching `-EnableAutoExpirationVersionTrim` from `$false` to `$true` sets `MajorVersionLimit` to 500 and `ExpireVersionsAfterDays` to 30, overriding any values provided for those parameters.
+- Specifying `-MajorVersionLimit` or `-ExpireVersionsAfterDays` when the policy has `EnableAutoExpirationVersionTrim` set to `$true` throws an error.
+
+Always review the returned policy object before passing it to `New-SPOTenantApplyFileVersionPolicyJob` or `Get-SPOTenantApplyFileVersionPolicyJobImpact` to confirm it reflects the intended configuration.
+
 ## RELATED LINKS
 
 [Get-SPOTenantVersionPolicy](Get-SPOTenantVersionPolicy.md)
