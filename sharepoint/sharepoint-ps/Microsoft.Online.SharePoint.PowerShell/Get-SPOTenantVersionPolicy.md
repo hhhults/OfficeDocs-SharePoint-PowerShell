@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Online.SharePoint.PowerShell.dll-Help.xml
 Module Name: microsoft.online.sharepoint.powershell
-online version: https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/get-spotenantversiopolicy
+online version: https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/get-spotenantversionpolicy
 applicable: SharePoint Online
 title: Get-SPOTenantVersionPolicy
 schema: 2.0.0
