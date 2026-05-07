@@ -843,7 +843,7 @@ Accept wildcard characters: False
 
 > Applicable: SharePoint Online
 
-When set to TRUE, the DefaultSharingLinkType will be overriden and the default sharing link will a People with Existing Access link (which does not modify permissions). When set to FALSE (the default), the DefaultSharingLinkType parameter controls the default sharing link type.
+When set to TRUE, the DefaultSharingLinkType will be overriden and the default sharing link will be a People with Existing Access link (which does not modify permissions). When set to FALSE (the default), the DefaultSharingLinkType parameter controls the default sharing link type.
 
 PARAMVALUE: False | True
 
@@ -1715,7 +1715,7 @@ Accept wildcard characters: False
 
 > Applicable: SharePoint Online
 
-Determines whether it should override the sharing capability on its partition. For example, if the tenant sharing capability is `ExternalUserAndGuestSharing`, the core partition sharing capability is `Disabled`, and the sharing capability defined on the site collection is `ExternalUserAndGuestSharing`, the effective site sharing capability should be `Disabled` (the most restrictive one among tenant, partition, and site collecction) if `OverrideSharingCapability` is `false`. If `OverrideSharingCapability` is `true`, it skips checking partition sharing capability and the effective site sharing capability should be `ExternalUserAndGuestSharing`.
+Determines whether it should override the sharing capability on its partition. For example, if the tenant sharing capability is `ExternalUserAndGuestSharing`, the core partition sharing capability is `Disabled`, and the sharing capability defined on the site collection is `ExternalUserAndGuestSharing`, the effective site sharing capability should be `Disabled` (the most restrictive one among tenant, partition, and site collection) if `OverrideSharingCapability` is `false`. If `OverrideSharingCapability` is `true`, it skips checking partition sharing capability and the effective site sharing capability should be `ExternalUserAndGuestSharing`.
 
 PARAMVALUE: False | True
 
