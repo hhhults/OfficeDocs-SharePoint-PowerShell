@@ -9,7 +9,7 @@ author: samkabue
 ms.author: speedta
 ms.reviewer: Mengke-GH
 description: 'A PowerShell cmdlet used in SharePoint Online to configure organization-wide tenant settings.'
-ms.date: 08/03/2026
+ms.date: 09/10/2026
 ---
 
 # Set-SPOTenant
@@ -124,7 +124,9 @@ Set-SPOTenant [-MinCompatibilityLevel <Int32>] [-MaxCompatibilityLevel <Int32>]
  [-DelayDenyAddAndCustomizePagesEnforcement <Boolean>]
  [-DelayDenyAddAndCustomizePagesEnforcementOnClassicPublishingSites <Boolean>]
  [-AllowClassicPublishingSiteCreation <Boolean>] [-WhoCanShareAnonymousAllowList <Guid[]>]
+ [-AppOnlyBypassWhoCanShareAnonymousAllowList <Guid[]>]
  [-WhoCanShareAuthenticatedGuestAllowList <Guid[]>]
+ [-AppOnlyBypassWhoCanShareAuthenticatedGuestAllowList <Guid[]>]
  [-ResyncContentSecurityPolicyConfigurationEntries <Boolean>] [-ContentSecurityPolicyEnforcement <Boolean>]
  [-DelayContentSecurityPolicyEnforcement <Boolean>]
  [-DocumentUnderstandingModelScope <SyntexFeatureScopeValue>]
@@ -260,7 +262,9 @@ Set-SPOTenant [-MinCompatibilityLevel <Int32>] [-MaxCompatibilityLevel <Int32>]
  [-DelayDenyAddAndCustomizePagesEnforcement <Boolean>]
  [-DelayDenyAddAndCustomizePagesEnforcementOnClassicPublishingSites <Boolean>]
  [-AllowClassicPublishingSiteCreation <Boolean>] [-WhoCanShareAnonymousAllowList <Guid[]>]
+ [-AppOnlyBypassWhoCanShareAnonymousAllowList <Guid[]>]
  [-WhoCanShareAuthenticatedGuestAllowList <Guid[]>]
+ [-AppOnlyBypassWhoCanShareAuthenticatedGuestAllowList <Guid[]>]
  [-ResyncContentSecurityPolicyConfigurationEntries <Boolean>] [-ContentSecurityPolicyEnforcement <Boolean>]
  [-DelayContentSecurityPolicyEnforcement <Boolean>]
  [-DocumentUnderstandingModelScope <SyntexFeatureScopeValue>]
@@ -397,7 +401,9 @@ Set-SPOTenant [-MinCompatibilityLevel <Int32>] [-MaxCompatibilityLevel <Int32>]
  [-DelayDenyAddAndCustomizePagesEnforcement <Boolean>]
  [-DelayDenyAddAndCustomizePagesEnforcementOnClassicPublishingSites <Boolean>]
  [-AllowClassicPublishingSiteCreation <Boolean>] [-WhoCanShareAnonymousAllowList <Guid[]>]
+ [-AppOnlyBypassWhoCanShareAnonymousAllowList <Guid[]>]
  [-WhoCanShareAuthenticatedGuestAllowList <Guid[]>]
+ [-AppOnlyBypassWhoCanShareAuthenticatedGuestAllowList <Guid[]>]
  [-ResyncContentSecurityPolicyConfigurationEntries <Boolean>] [-ContentSecurityPolicyEnforcement <Boolean>]
  [-DelayContentSecurityPolicyEnforcement <Boolean>]
  [-DocumentUnderstandingModelScope <SyntexFeatureScopeValue>]
@@ -532,7 +538,9 @@ Set-SPOTenant [-MinCompatibilityLevel <Int32>] [-MaxCompatibilityLevel <Int32>]
  [-DelayDenyAddAndCustomizePagesEnforcement <Boolean>]
  [-DelayDenyAddAndCustomizePagesEnforcementOnClassicPublishingSites <Boolean>]
  [-AllowClassicPublishingSiteCreation <Boolean>] [-WhoCanShareAnonymousAllowList <Guid[]>]
+ [-AppOnlyBypassWhoCanShareAnonymousAllowList <Guid[]>]
  [-WhoCanShareAuthenticatedGuestAllowList <Guid[]>]
+ [-AppOnlyBypassWhoCanShareAuthenticatedGuestAllowList <Guid[]>]
  [-ResyncContentSecurityPolicyConfigurationEntries <Boolean>] [-ContentSecurityPolicyEnforcement <Boolean>]
  [-DelayContentSecurityPolicyEnforcement <Boolean>]
  [-DocumentUnderstandingModelScope <SyntexFeatureScopeValue>]
@@ -667,7 +675,9 @@ Set-SPOTenant [-MinCompatibilityLevel <Int32>] [-MaxCompatibilityLevel <Int32>]
  [-DelayDenyAddAndCustomizePagesEnforcement <Boolean>]
  [-DelayDenyAddAndCustomizePagesEnforcementOnClassicPublishingSites <Boolean>]
  [-AllowClassicPublishingSiteCreation <Boolean>] [-WhoCanShareAnonymousAllowList <Guid[]>]
+ [-AppOnlyBypassWhoCanShareAnonymousAllowList <Guid[]>]
  [-WhoCanShareAuthenticatedGuestAllowList <Guid[]>]
+ [-AppOnlyBypassWhoCanShareAuthenticatedGuestAllowList <Guid[]>]
  [-ResyncContentSecurityPolicyConfigurationEntries <Boolean>] [-ContentSecurityPolicyEnforcement <Boolean>]
  [-DelayContentSecurityPolicyEnforcement <Boolean>]
  [-DocumentUnderstandingModelScope <SyntexFeatureScopeValue>]
@@ -6203,6 +6213,24 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -AppOnlyBypassWhoCanShareAnonymousAllowList
+
+> Applicable: SharePoint Online
+
+Application IDs whose app-only requests bypass the `WhoCanShareAnonymousAllowList` policy.
+
+```yaml
+Type: System.Guid[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -WhoCanShareAuthenticatedGuestAllowList
 
 Sets the list of security groups who are only allowed to share with authenticated guest users. Each
@@ -6214,6 +6242,24 @@ security group is denoted by its GUID object ID.
 To set this list to be a specific security group, you need to enter its GUID as the argument. You
 can enter multiple GUIDs by using commas to separate them. To view the current list, use
 [Get-SPOTenant](Get-SPOTenant.md).
+
+```yaml
+Type: System.Guid[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AppOnlyBypassWhoCanShareAuthenticatedGuestAllowList
+
+> Applicable: SharePoint Online
+
+Application IDs whose app-only requests bypass the `WhoCanShareAuthenticatedGuestAllowList` policy.
 
 ```yaml
 Type: System.Guid[]
